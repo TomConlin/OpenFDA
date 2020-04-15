@@ -1,0 +1,127 @@
+# Inosine
+
+Inosinic Acid
+Inosinic Acid (E690)
+Inosine
+Urate/Uric
+Allantoin, Trientine 
+Nitric Oxide
+iNOS
+
+
+
+ATC code	
+    D06BB05
+    G01AX02
+    S01XA10
+	
+
+Pharmacokinetic data
+Metabolism	Hepatic
+
+Identifiers
+IUPAC name
+[show]
+CAS Number  58-63-9
+
+PubChem CID 6021
+
+IUPHAR/BPS  4554
+
+DrugBank    DB04335
+
+ChemSpider  5799
+
+UNII    5A614L51CT
+
+KEGG    C00294
+
+ChEBI   CHEBI:17596
+
+ChEMBL  ChEMBL1556
+
+CompTox Dashboard (EPA) DTXSID2045993
+
+ECHA InfoCard   100.000.355
+
+
+
+
+
+
+INOSINE Inosine
+https://www.drugs.com/international/inosine.html
+
+Rec.INN
+(Anatomical Therapeutic Chemical Classification)
+ATC     D06BB05,G01AX02,S01XA10
+CAS registry number (Chemical Abstracts Service)    0000058-63-9
+Chemical Formula    C10-H12-N4-O5
+Molecular Weight    268
+Therapeutic Categories  Tonic agent
+
+Treatment of heart failure (adjunct)
+Chemical Name   1,9-Dihydro-9-beta-D-ribofuranosyl-6H-purin-6-one
+
+Foreign Names
+    Inosinum (Latin)
+    Inosin (German)
+    Inosine (French)
+    Inosina (Spanish)
+
+Generic Names
+    Inosine (OS: DCF, JAN)
+    INO 495 (IS)
+    Disodium inosinate (IS)
+    Inosin-5'-phosphat, Dinatriumsalz-2-Wasser (IS)
+    Inosinphosphat, Dinatriumsalz, Dihydrat (IS)
+
+BrandNames  commpany, country
+    Adenocin [+ Nadide, + Acetyldigoxin, + Oxyfedrine]  Biotechpharma, Russian Federation
+    Adenocinum [+ Oxyfedrine, + Acetyldigoxin, + Nicotinamide]  Biotechpharma, Georgia
+    An Jie Di Lin      Topsun Pharmaceutical, China
+    An Qi Mi Rui        Duoburuifei Pharm, China
+    Ba Quan      Bei Te Pharm, China
+    Bioxin      BioPolus, Georgia
+    Correctol       Alcon, Tunisia
+    Dan Ze      Haishen Liansheng Pharmaceutical, China
+    De Yi Mei       Hui Yin Bi Group, China
+    Di Li       Tongyong Kangli Pharm, China
+    En Li Ke        Yuanheng Pharmaceutical, China
+    Fu Li Ding      Hua Shi Dan Pharmaceutical, China
+    Fu Li Xin       Hua Shi Dan Pharmaceutical, China
+    Gan Ke      Jianxi Pharmaceutical, China
+    Gan Quan        Guan Cai Pharmaceutical, China
+    Hu Yue      Yao Wang Pharm, China
+    Inosie F        Oriental, Taiwan
+    Inosine     Hebei Tiancheng Pharmaceutical, Russian Federation
+    Inosine-Hua Nan Pharm       Huanan Pharma, China
+    Isoprinosine Ewopharma      Ewopharma, Croatia (Hrvatska)
+    Ke Mi Ya        Ke Lun Pharm Hu Nan, China
+    Lai Mei Kang        Lai Mei Pharm, China
+    Lan Xu      QiDu Pharmaceutical, China
+    Li Fu - Binhu Shuanghe Pharm        Binhu Shuanghe Pharmaceutical, China
+    Li Sheng Si Tai     Wuzhoutong Pharmaceutical, China
+    Nadcinum [+ Nicotinamide]       Biotechpharma, Georgia
+    Neoeparbiol [+ Cyanocobalamin]      Ecobi, Italy
+    PiDi Gan        Pidi Pharmaceutical, China
+    Pu Fu       Wuzhoutong Pharmaceutical, China
+    Qi Fang Neng        Shuang Cheng Pharmaceutical, China
+    Quan Zhu        Fuzhou HaiWang FuYao Pharmaceutical Co., Ltd, China
+    Riboxin     Borisovskiy Zavod Medicinskikh Preparatov, Jsc, Georgia; Technolog, Georgia
+    Riboxin-Darnitsa        Darnitsa, Georgia
+    Riboxine        Ozon, Georgia
+    Tonarsyl [veterinary use]       Vetoquinol, France
+    WeiMeiJia       Pudu Pharmaceutical Factory, China
+    Xin Feng        Shandong Lukang Chenxin, China
+    Yan Luo Qi      Aodong Yanbian Pharmaceutical Group, China
+    Yi Rong Xin     Guojing Pharmaceutical, China
+    Ying Di Te [+ Citicoline]       Yuekang Pharmaceutical Group, China
+    Yong Rui Neng       JinFeng Pharmaceutical, China
+    Ze Bei      Changjiang Pharmaceutical, China
+    Zhu Lu      Yao Wang Pharm, China
+    Zuo He      Chang Fu Jie Jing Pharm, China
+    Catacol 0.1%        Alcon, France
+    Correctol 0.1%      Alcon, France
+    Inokat      Atlas Farmc., Argentina
+    Lumiclar        Max Visión, Argentina

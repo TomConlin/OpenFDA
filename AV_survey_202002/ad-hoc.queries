@@ -1,0 +1,196 @@
+Isolate/browse (all) records of particular types
+
+### What is with the people in this dataset?
+```
+ jq '.results|.[]|select(.animal|.species=="Human")' data/animalandveterinary/event/*/*.json | less
+```
+    Off lable usage... sometimes accidental, or of necessity, sometimes disturbing.
+
+### Why are there so many reports without an animal species given?
+```
+ jq '.results|.[]|select(.animal|.species==null)' data/animalandveterinary/event/*/*.json | less
+```
+    Seems to pertain to packaging problem reports which do not make it to an animal.
+
+
+### Serious events that happened to creatures,
+### We don't need the home office contact
+### We don't need the brand name (MSK)
+### We don't need the manufacture (MSK)
+
+```
+jq '.results|.[]|select((.serious_ae != "false")and(.animal|.species != null))|del(.receiver)|del(.drug|.[]|.manufacturer)|del(.drug|.[]|.brand_name)' data/animalandveterinary/event/*/*.json > serious_species.json
+```
+takes a minute and a half reduces 2.5G in ~130 files to 1.1G in one file
+also removes  the leading `.results|.[]|` from the paths.
+hope I don't need to put them `[]` back
+
+
+### what is the upper distribution of active ingredeiants that did something serious to something
+
+```
+jq '.drug|.[]|.active_ingredients|.[]|.name' serious_species.json | dist | head
+
+ 287527 null
+  45165 "Ivermectin"                antiparisite... increases cell wall permability
+  39786 "Spinosad"                  insecticide
+  34971 "Carprofen"                 nonsteroidal anti-inflammatory drug (NSAID)
+  34817 "Ivermectin, Pyrantel"      two different antiparisite see the first
+  34028 "Pyrantel As Pamoate Salt"  antiparisite in uptake agent
+  33462 "Selamectin"                topical parasiticide
+  23824 "Moxidectin"                anthelmintic parasiticide
+  22684 "Fluralaner Chew Tablets"   systemic insecticide and acaricide
+  21745 "Milbemycin"                antiparasitic
+
+```
+
+  That is a whole lot of useless active ingrediant.
+
+```
+ jq 'select((.drug|.[]|.active_ingredients|.[]|.name)==null)' serious_species.json  | less
+```
+
+lools like very many ".drug" includes a possibly otherwise empty array
+with the empty json object  being:
+
+```
+   {
+      "active_ingredients": [
+        {
+          "dose": {
+            "numerator_unit": "Unknown",
+            "denominator": "1",
+            "numerator": "1",
+            "denominator_unit": "Unknown"
+          }
+        }
+      ]
+    }
+
+```
+
+
+redo with more filtering, get 'lot_number' out of there as well
+
+```
+time jq -f inital_filter.jq  data/animalandveterinary/event/*/*.json > data/serious_species_ae2.json
+
+real	1m35.695s
+```
+this version retains more of the original '.results|.[]' structure of the original
+file size is 1.4G  which is not what I hoped, I thought it would go below 1G
+but I failed at removing null active ingrediants.
+I also changed the logic to avoid rejecting serious=false
+and just filtered for not null
+
+
+so I am adding the  serious_ae == "true" back into this query
+```
+jq '.results|.[]|select(.serious_ae == "true")|.drug|.[]|.active_ingredients|.[]|.name' data/serious_species_ae.json | dist | head
+  48010 null
+  37927 "Ivermectin"
+  34028 "Pyrantel As Pamoate Salt"
+  22684 "Fluralaner Chew Tablets"
+  20014 "Milbemycin Oxime"
+  18995 "Spinosad"
+  16366 "Afoxolaner"
+  12704 "Moxidectin"
+  10694 "Imidacloprid"
+   6405 "Praziquantel"
+```
+
+which cut the null ingrediants by an order of magnitude
+
+# same  query but for not serious events
+
+```
+jq '.results|.[]|select(.serious_ae != "true")|.drug|.[]|.active_ingredients|.[]|.name' data/serious_species_ae.json | dist | head
+ 146758 "Spinosad"
+ 120284 "Milbemycin Oxime"
+  28142 null
+  17491 "Ivermectin"
+  14423 "Selamectin"
+  13049 "Oclacitinib Maleate"
+  12355 "Moxidectin"
+  11346 "Praziquantel"
+  10276 "Pyrantel As Pamoate Salt"
+   8050 "Nitenpyram"
+
+```
+
+Predominatly Pesticides in either case.
+
+Am going to try to get a hint if the data set could be useful for a particular
+project invilving substances and babies.
+
+Here I am enriching for possibly pregnant and checking outcomes
+```
+jq '.results|.[]|select(.serious_ae != "true")|select((.animal|.gender!="Male") and (.animal|.reproductive_status!="Neutered"))|.outcome|.[]?|.medical_status' data/serious_species_ae.json | dist | head
+  38375 "Recovered/Normal"
+  29490 "Outcome Unknown"
+   5662 "Ongoing"
+   3793 "Recovered with Sequela"
+    137 "Euthanized"
+     73 "Died"
+```
+retry with vedra term names
+
+```
+jq '.results|.[]|select(.serious_ae != "true")|select((.animal|.gender!="Male") and (.animal|.reproductive_status!="Neutered"))|.reaction|.[]?|.veddra_term_name' data/serious_species_ae.json | dist | head
+  23502 "Emesis"
+  10367 "Vomiting"
+   9330 "Lack of efficacy"
+   8403 "INEFFECTIVE, FLEAS"
+   7955 "Lethargy (see also Central nervous system depression in 'Neurological')"
+   3612 "Diarrhoea"
+   1777 "Lack of efficacy (flea)"
+   1703 "Pruritus"
+   1614 "Behavioural disorder NOS"
+   1508 "INEFFECTIVE, HEARTWORM LARVAE"
+```
+
+morning sickness? (haha)
+
+that is alot of terms
+
+```
+jq '.results|.[]|select(.serious_ae != "true")|select((.animal|.gender!="Male") and (.animal|.reproductive_status!="Neutered"))|.reaction|.[]?|.veddra_term_name' data/serious_species_ae.json | dist > veddra_term_name.dist01
+
+
+grep -i "abort" veddra_term_name.dist01
+     12 "INEFFECTIVE, ABORTION"
+      4 "Abortion"
+
+```
+
+that is not alot of signal of something going wrong with pregnancy here
+(nothing in misscarriage either)
+
+```
+grep -i "defect" veddra_term_name.dist01
+    165 "Product Defect, General"
+     23 "Device Defective NOS"
+      6 "Defect Unknown/Not Specified"
+      1 "Visual field defect"
+      1 "Birth defect"
+```
+
+hmm one in thirty years; gosh I am feeling safer allready
+
+```
+jq '.results|.[]|select(.serious_ae != "true")|select((.animal|.gender!="Male") and (.animal|.reproductive_status!="Neutered"))|.animal|.female_animal_physiological_status' data/serious_species_ae.json | dist
+
+  43631 "Unknown"
+  25383 null
+   6131 "Nonpregnant Nonlactating"
+   1178 "Not applicable"
+    437 "Pregnant Lactating"
+    361 "Nonpregnant Lactating"
+    158 "Pregnant Nonlactating"
+    100 "Mixed"
+      3 "MIXED"
+
+ ```
+
+I think I must conceed this dataset in not going to directly provide
+the Teratogen signal I had hoped for.

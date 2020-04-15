@@ -1,0 +1,30 @@
+
+# SWAG model
+
+results have_a  unique_aer_id_number 
+results have_a  serious_ae
+results have_a  number_of_animals_[treated|affected]
+results have_a  type_of_information
+
+results have_an animal
+    animal  has_a species   {breed}
+    animal  has_a gender    {reproductive_status}
+    animal  has_an age...
+
+
+results have_a  drug
+    drug    have_an atc_vet_code {& brand_name}
+    drug    have_a  route
+    drug    administered    on|off-label
+    drug    have_an active_ingrediant        
+        active_ingrediant have_a    name
+        active_ingrediant have_a    dose{}
+
+results have_a  reaction
+    reactions   have_an accuracy
+    reactions   have_a  veddrs_term_code (& name)
+
+results have_a  outcome {medical_status, number_of_animals_affected}  # by
+
+
+

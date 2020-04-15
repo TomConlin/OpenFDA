@@ -1,0 +1,409 @@
+# OPEN FDA  (adverse) events
+
+https://open.fda.gov/downloads/
+
+On this page 
+https://open.fda.gov/apis/downloads/
+
+
+there is a link to a file with the downloar]d urls
+https://api.fda.gov/download.json
+
+ mkdir data
+ mkdir script
+ mkdir downloads_metadata
+ cd downloads_metadata
+ wget -N https://api.fda.gov/download.json
+
+json2jqpath.jq download.json > download_json.jqpath
+
+get the paths to the file paths of interest  (not devices)
+
+grep 'file$' download_json.jqpath|grep -v ".device"
+.results|.animalandveterinary|.event|.partitions|.[]|.file
+.results|.drug|.enforcement|.partitions|.[]|.file
+.results|.drug|.event|.partitions|.[]|.file
+.results|.drug|.label|.partitions|.[]|.file
+.results|.drug|.ndc|.partitions|.[]|.file
+.results|.food|.enforcement|.partitions|.[]|.file
+.results|.food|.event|.partitions|.[]|.file
+.results|.other|.nsde|.partitions|.[]|.file
+.results|.other|.substance|.partitions|.[]|.file
+
+for qp in $(grep "|.file$" download_json.jqpath|grep -v "|.device|") ; do
+    jq "$qp" download.json|tr -d '"' >> urltofetch.list;
+done
+
+cd ../data
+
+# carefull you need the full path as they reuse the same ~500 filenames
+# for over a thousand files
+ 
+time for u in $(cat ../downloads_metadata/urltofetch.list) ; do 
+    wget --timestamping --force-directories --no-host-directories  "$u"; 
+done
+
+real	34m5.692s
+user	1m40.662s
+sys	3m50.681s
+
+du -sh
+42G	 (zipped)
+
+tree
+...
+207 directories, 1106 files
+
+I would estimate couple hundred gigs uncompressed 
+
+----------------------------------------------------------
+time find  */ -type f -name \*.zip -execdir unzip  {} \;
+
+real	21m33.736s
+user	18m12.079s
+
+du -sh .
+243G	.
+
+201G  uncompressed :)
+
+-----------------------------------------------------------
+ du -sh */
+2.7G	animalandveterinary/
+239G	drug/
+82M	food/
+1.6G	other/
+
+
+Animal&Vet turned out to be apx. 1M records  
+which implies drug is appt to approach 100M
+providing the sehemas are of similar magnitude.
+
+
+$ du -sh */*/
+2.7G	animalandveterinary/event/
+20M	    drug/enforcement/
+233G	drug/event/
+6.0G	drug/label/
+198M	drug/ndc/
+29M	    food/enforcement/
+53M	    food/event/
+154M	other/nsde/
+1.5G	other/substance/
+
+    */enforcement/      a single file (each)
+    drug/ndc/           a single file
+    other/substance/    a single file
+    other/nsde/         two files
+    drug/label/         eight files
+
+14 files plus   ~ 1k */event/   files
+
+note:  
+A previous survey indicated all A&V/event files shared a common schema
+if the drug/event files were close that would help.
+
+
+Pick generic particular (random sample) 2010q2
+
+json2jqpath.jq data/drug/event/2010q2/drug-event-0005-of-0009.json > downloads_metadata/drug_event.jqpth
+
+json2jqpath.jq  data/animalandveterinary/event/2010q2/animalandveterinary-event-0001-of-0001.json > downloads_metadata/av_event.jqpth
+
+
+some similarity but not really, obviously sections for animals v.s patients
+in some sense animals are a bit more accessible as there is no pii but there 
+are more  drug related fields for patients. 
+metadata is the same. 
+
+copy smaller files from animal survey here(no home bandwith to move the rest)
+find in AV_survey_202002/
+ 
+awk -F"." '{print $NF}' downloads_metadata/drug_event.jqpth | sort -u > drug_event_term
+awk -F"." '{print $NF}' downloads_metadata/av_event.jqpth| sort -u > av_event_term
+comm -12 drug_event_term av_event_term
+
+less in commom than I hoped.
+noting that the dearth of term such as active ingrediants 
+in drug/event as compared with av/event
+is they are split out (and more) in drug/label
+
+
+json2jqpath.jq data/drug/label/drug-label-0004-of-0008.json > downloads_metadata/drug_label.jqpth
+
+
+grab the id and a couple of the less free text name options
+jq  ".results|.[]|.id, (.openfda|.generic_name, (.substance_name))" \
+    data/drug/label/drug-label-000*.json  > junk/id_generic_substance.blob
+
+
+fgrep -C4 'INOSINE' junk/id_generic_substance.blob 
+
+"65e6764d-4cf1-ffc1-e053-2991aa0ab6db"
+[
+  "SODIUM PYRUVATE, INOSINE, ADENINE, SODIUM PHOSPHATE, DIBASIC, AND SODIUM PHOSPHATE, MONOBASIC, MONOHYDRATE"
+]
+[
+  "SODIUM PYRUVATE",
+  "INOSINE",
+  "SODIUM PHOSPHATE, MONOBASIC, MONOHYDRATE",
+  "SODIUM PHOSPHATE, DIBASIC",
+  "ADENINE"
+]
+
+jq 'select(.results|.[]|.id=="65e6764d-4cf1-ffc1-e053-2991aa0ab6db")' \
+    data/drug/label/drug-label-000*.json  > drug_label_Inosine.json
+
+# which event files mention inosine?
+rg -l --type json "INOSINE"  data/animalandveterinary/event/
+
+nothing in animalvet
+
+rg -l --type json "INOSINE"  data/drug/event/
+
+lots
+
+rg -l --type json "INOSINE"  data/drug/event/ > drug_event_inosine.filelist
+
+wc -l drug_event_inosine.filelist
+137 drug_event_inosine.filelist
+
+head  drug_event_inosine.filelist
+data/drug/event/2016q1/drug-event-0024-of-0029.json
+data/drug/event/2004q1/drug-event-0002-of-0005.json
+data/drug/event/2004q1/drug-event-0005-of-0005.json
+data/drug/event/2019q1/drug-event-0031-of-0032.json
+data/drug/event/2019q1/drug-event-0019-of-0032.json
+data/drug/event/2019q1/drug-event-0015-of-0032.json
+data/drug/event/2019q1/drug-event-0028-of-0032.json
+data/drug/event/2004q1/drug-event-0004-of-0005.json
+data/drug/event/2019q1/drug-event-0025-of-0032.json
+data/drug/event/2019q1/drug-event-0020-of-0032.json
+
+
+
+What is in in those files that is finding a match?
+
+rg -IN --type json "INOSINE"  data/drug/event/  | sort -u
+
+
+              "activesubstancename": "INOSINE"
+              "activesubstancename": "INOSINE PRANOBEX"
+              "activesubstancename": "METHYLTHIOINOSINE"
+              "activesubstancename": "THIOINOSINE"
+        "literaturereference": "JIANG W, HIDAKA H, NAKAZAWA T, KITAGAWA H, KOIZUMI W.. SEVERE THROMBOCYTOPENIA IN A PATIENT WITH INOSINE TRIPHOSPHATASE (ITPA)-CC GENOTYPE CAUSED BY PEGYLATED INTERFERON (IFN)-ALPHA-2A WITH RIBAVIRIN THERAPY: A CASE REPORT. BMC-RES-NOTES. 2014;7:141",
+        "literaturereference": "MORIO K, IMAMURA M, KAWAKAMI  Y, MORIO  R, HATOOKA  M, KAN  H, ET AL. EFFECTS OF ITPA POLYMORPHISM ON DECREASE OF HEMOGLOBIN DURING SIMEPREVIR, PEG-INTERFERON, AND RIBAVIRIN COMBINATION TREATMENT FOR CHRONIC HEPATITIS C. HEPATOLOGY RESEARCH 2016;46:1256-1263. MORIO K, IMAMURA  M, SHINOHARA  M, NAKANO  N, NAKAMURA  Y, HATAOKA  M, ET AL. MULTI-CENTER INVESTIGATION ON INOSINE TRIPHOSPHATE PYROPHOSPHATASE (ITPA) GENOTYPES, ANAEMIA, AND EFFICACY IN PATIENTS RECEIVING SIMEPREVIR SODIUM WITH PEGINTERFE",
+        "literaturereference": "MORIO K, IMAMURA M, KAWAKAMI Y, MORIO R, HATOOKA M, KAN H, ET AL. EFFECTS OF ITPA POLYMORPHISM ON DECREASE OF HEMOGLOBIN DURING SIMEPREVIR, PEG-INTERFERON, AND RIBAVIRIN COMBINATION TREATMENT FOR CHRONIC HEPATITIS C. HEPATOLOGY RESEARCH 2016;46:1256-1263. MORIO K, IMAMURA M, SHINOHARA M, NAKANO N, NAKAMURA Y, HATAOKA M, ET AL. MULTI-CENTER INVESTIGATION ON INOSINE TRIPHOSPHATE PYROPHOSPHATASE (ITPA) GENOTYPES, ANAEMIA, AND EFFICACY IN PATIENTS RECEIVING SIMEPREVIR SODIUM WITH PEGINTERFERON (PEG-",
+        "literaturereference": "WEIGEL G, GRIESMACHER A, ZUCKERMANN A, LAUFER G AND MUELLER M EFFECT OF MYCOPHENOLATE MOFETIL THERAPY ON INOSINE MONOPHOSPHATE DEHYDROGENASE INDUCTION IN RED BLOOD CELLS OF HEART TRANSPLANT RECIPIENTS. CLINICAL PHARMACOLOGY AND THERAPEUTICS 2001 MAR;69 (3):137-144.",
+            "medicinalproduct": "CORRECTOL                                    (INOSINE MONOPHOSPHATE DI"
+            "medicinalproduct": "CORRECTOL  (INOSINE MONOPHOSPHATE DISODIUM)"
+            "medicinalproduct": "CYTOFLAVIN (INOSINE + NICOTINAMIDE + RIBOFLAVIN MONONUCLEOTIDE + SUCCI",
+            "medicinalproduct": "DDI (DIDEOXYINOSINE)",
+            "medicinalproduct": "DDI (DIDEOXYINOSINE) ORALS",
+            "medicinalproduct": "DIDANOSINE (DIDANOSINE, DIDEOXYINOSINE)"
+            "medicinalproduct": "DIDANOSINE (DIDANOSINE, DIDOXYINOSINE)"
+            "medicinalproduct": "DIDEOXYINOSINE",
+            "medicinalproduct": "GROPRINOSINE (INOSINE PRANOBEX)"
+            "medicinalproduct": "INOSINE"
+            "medicinalproduct": "INOSINE",
+            "medicinalproduct": "INOSINE AND SODIUM CHLORIDE",
+            "medicinalproduct": "INOSINE (INOSINE)"
+            "medicinalproduct": "INOSINE MONOPHOSPHATE DISODIUM"
+            "medicinalproduct": "INOSINE MONOPHOSPHATE DISODIUM (INOSINE MONOPHOSPHATE DISODIUM)"
+            "medicinalproduct": "INOSINE PHOSPHATE DISODIUM"
+            "medicinalproduct": "INOSINE PRANOBEX"
+            "medicinalproduct": "INOSINE PRANOBEX",
+            "medicinalproduct": "INOSINE PRANOBEX (INOSINE PRANOBEX)"
+            "medicinalproduct": "INOSINE PRANOBEX (INOSINE PRANOBEX)",
+            "medicinalproduct": "INOSINE/SODIUM CHLORIDE",
+            "medicinalproduct": "ISOPRINOSINE"
+            "medicinalproduct": "ISOPRINOSINE",
+            "medicinalproduct": "ISOPRINOSINE (INOSNE PRANOBEX)"
+            "medicinalproduct": "MINOSINE"
+            "medicinalproduct": "RIBOXINE (INOSINE) (INOSINE)"
+            "medicinalproduct": "THIOINOSINE",
+            "medicinalproduct": "VIDEX (DIDEOXYINOSINE, DIDANOSINE)"
+
+
+# start w/  medicinalproduct
+
+grep medicinalproduct downloads_metadata/drug_event.jqpth
+
+.results|.[]|.patient|.drug|.[]|.medicinalproduct
+
+
+time \
+for p in $(cat drug_event_inosine.filelist); do
+     jq '{results: [.results|.[]|select(.patient|.drug|.[]?|.medicinalproduct|contains("INOSINE"))]}' $p; 
+done > drug_event_inosine_patient.json
+
+jq: error (at data/drug/event/2006q4/drug-event-0005-of-0005.json:12398886): 
+    null (null) and string ("INOSINE") cannot have their containment checked
+
+real	16m48.463s
+
+
+ls -lath
+8.9M Mar 26 17:17 drug_event_inosine_patient.json
+
+
+jq ".|.id" drug_event_inosine_patient.json | wc -l
+
+136
+
+may have to expand the terms search for but this is a start
+seems many events have other substances involved
+
+jq ".results|.[]|.patient|.drug|.[]|.medicinalproduct" drug_event_inosine_patient.json | wc -l
+
+1891
+
+
+1891 / 136    is  13.9044   medical products per adverse event report on average
+we know at least one of them should be Inosine
+
+Extracting Inosine specific effects is likely beyond my abilities.
+
+
+most common medical products in this set that includes Inosine
+
+jq ".results|.[]|.patient|.drug|.[]|.medicinalproduct" drug_event_inosine_patient.json | sort | uniq -c | sort -nr
+
+      8 "XANAX"
+      8 "VANCOMYCIN"
+      8 "SPIRONOLACTONE."
+      8 "SOMA"
+      8 "POTASSIUM CHLORIDE."
+      8 "METHYLPREDNISOLONE W/SUCCINATE SODIUM"
+      8 "HUMAN ALBUMIN"
+      8 "ERYTHROMYCIN."
+      8 "DOXAZIN//DOXAZOSIN MESILATE"
+      8 "DEMEROL"
+      8 "CARBAMAZEPINE"
+      8 "CAMPATH"
+      8 "AMLODIPINE BESYLATE."
+      8 "ALPROSTADIL."
+      8 "ALBUMIN HUMAN"
+      7 "VALIUM"
+      7 "TORASEMIDE"
+      7 "THEOPHYLLINE"
+      7 "SULODEXIDE"
+      7 "GLUTATHIONE"
+      7 "DIDEOXYINOSINE"
+      7 "DEXAMETHASONE"
+      7 "CYTARABINE."
+      7 "CODEINE"
+      7 "CALCII CHLORIDUM//CALCIUM CHLORIDE"
+      7 "BENTYL"
+      7 "ATORVASTATIN"
+      7 "ASPARAGINASE"
+      7 "AMOXICILLIN."
+      7 "ALTACE"
+... and a very long tail
+  
+
+how many of the 136 events involve people?
+jq -r ".results|.[]|.patient| length"  drug_event_inosine_patient.json | wc -l
+129 
+
+Seven events are apt to be product/packaging related
+
+
+Do we see dead people ?
+
+jq ".results|.[]|.patient|.patientdeath" drug_event_inosine_patient.json
+
+100% null  is no dead people
+
+
+Are they overweight?
+jq ".results|.[]|.patient|.patientweight" drug_event_inosine_patient.json |
+    grep -v null | tr -d '"' | ministat -n
+
+x
+    N           Min           Max        Median           Avg        Stddev
+x  54             3           100            68     61.819815     22.210293
+
+pretty average
+
+
+# Gender
+jq ".results|.[]|.patient|.patientsex" drug_event_inosine_patient.json | grep -v null | sort | uniq -c
+     56 "1"
+     71 "2"
+
+so am I a number one or a number two?  
+we would have to find where to look it up or find a discriminating context.
+
+
+Age
+
+jq -r ".results|.[]|.patient|select(.patientonsetageunit==\"801\"and .patientonsetage)|.patientonsetage" \
+    drug_event_inosine_patient.json | ministat -n
+
+x
+    N           Min           Max        Median           Avg        Stddev
+x  93             3            92            44     42.290323     20.934983
+
+
+
+# Paitent Ractions
+
+jq ".results|.[]|.patient|.reaction|.[]|.reactionmeddrapt" drug_event_inosine_patient.json|
+    wc -l
+766
+    480  are unique
+    408 disreguarding case
+    
+which is still several distinct reactions per patient on average
+
+
+Most common reactions (recall: expect a dozen other medical products present as well)
+jq ".results|.[]|.patient|.reaction|.[]|.reactionmeddrapt" drug_event_inosine_patient.json |
+    tr '[A-Z]' '[a-z]' | sort | uniq -c | sort -nr -nr > drug_event_inosine_patient_reaction.dist
+
+# top "reactions"
+head -20 drug_event_inosine_patient_reaction.dist
+     16 "pyrexia"
+     14 "diarrhoea"
+      9 "vomiting"
+      8 "nausea"
+      8 "hypertension"
+      8 "drug hypersensitivity"
+      7 "rash"
+      7 "palpitations"
+      7 "obstructive airways disorder"
+      7 "lung disorder"
+      6 "throat tightness"
+      6 "subacute sclerosing panencephalitis"
+      6 "scoliosis"
+      6 "platelet count decreased"
+      6 "mitral valve prolapse"
+      6 "gastrooesophageal reflux disease"
+      6 "exposure to toxic agent"
+      6 "essential hypertension"
+      6 "diverticulum"
+      6 "coronary artery occlusion"
+
+
+# things you might expect
+egrep 'uric|urea' drug_event_inosine_patient_reaction.dist
+      3 "blood urea increased"
+      1 "hyperuricaemia"
+      1 "blood uric acid increased"
+
+
+jq ".results|.[]|.patient|.reaction|.[]|.reactionmeddrapt" drug_event_inosine_patient.json | grep -i hyperuricaemia
+"Hyperuricaemia"
+
+
+jq "select(.results|.[]|.patient|.reaction|.[]|.reactionmeddrapt==\"Hyperuricaemia\")" drug_event_inosine_patient.json > drug_event_inosine_patient_hyperuricaemia.json
+
+164K Mar 27 11:26 drug_event_inosine_patient_hyperuricaemia.json
+
+jq 'del(.results|.[]|.patient|.drug|.[]|.openfda| .package_ndc,.application_number,.spl_id,.product_ndc,.brand_name,.spl_set_id,.manufacturer_name,.rxcui)'\
+ drug_event_inosine_patient_hyperuricaemia.json > drug_event_inosine_patient_hyperuricaemia_filtered.json
+
+36K Mar 27 11:55 drug_event_inosine_patient_hyperuricaemia_filtered.json
+
+

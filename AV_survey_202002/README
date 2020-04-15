@@ -1,0 +1,547 @@
+
+# FDA animal adverse events
+
+https://open.fda.gov/downloads/
+
+On this page 
+https://open.fda.gov/apis/downloads/
+
+
+there is a link to a file with the downloar]d urls
+https://api.fda.gov/download.json
+
+
+In `./downloads_metadata/README.md`
+ we isolate a list of urls to zip-files  `fda_animal_event_url.list`
+ we will download .
+
+
+# Hey I<001_ kids! lets give hundreds of different files the exact same name!
+
+for url in $(cat ./downloads_metadata/fda_animal_event_url.list); do
+    echo "${url##*/}";
+done | head
+
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+animalandveterinary-event-0001-of-0001.json.zip"
+
+
+---
+
+cd ./data
+for url in $(cat ../downloads_metadata/fda_animal_event_url.list); do
+    wget --timestamping --force-directories --no-host-directories  $url
+done
+cd ..
+
+du -sh data/
+134M	data/
+
+
+--------------
+
+in ./junk
+
+pick an arbitrary particular file to copy and explore
+
+
+```
+cp ../data/animalandveterinary/event/2019q1/animalandveterinary-event-0001-of-0001.json.zip .
+
+unzip animalandveterinary-event-0001-of-0001.json.zip
+
+json2xpath.jq  animalandveterinary-event-0001-of-0001.json | sort -u > junk.xpath
+```
+
+Some harmless visual stimuli
+
+
+```
+sed 's~/~|.~g' junk.xpath > junk.jqpath
+
+xpath2dot.awk junk.jqpath > junk.gv
+
+dot -Tsvg junk.gv > junk.svg
+
+dot -Tpdf junk.gv > junk.pdf
+
+xdot junk.gv
+
+```
+
+![](junk.svg)
+
+--------------------------------------------------
+
+To extract usable paths:
+```
+./json2jqpath.jq junk/animalandveterinary-event-0001-of-0001.json > fdacvm.jqpath
+```
+look as species
+```
+grep species fdacvm.jqpath
+.results|.[]|.animal|.species
+
+```
+jq ".results|.[]|.animal|.species" animalandveterinary-event-0001-of-0001.json | dist
+   8599 "Dog"
+   2408 null
+   1400 "Cat"
+    262 "Cattle"
+    126 "Human"
+    115 "Horse"
+     23 "Pig"
+      5 "Turkey"
+      4 "Mouse"
+      3 "Sheep"
+      3 "Goat"
+      2 "Rabbit"
+      2 "Other Canids"
+      2 "Other Birds"
+      2 "Other"
+      2 "Alpaca"
+      1 "Other Mammals"
+      1 "Other Deer"
+      1 "Monkey"
+      1 "Lynx"
+      1 "Chicken"
+      1 ""
+```
+
+Human is off-label useage (deliberate or not)
+null tends to be packaging issues, broken seals, shorting doses.
+
+---
+
+
+To guess at what things we may want to know I started a Silly Wild-A* Guess model
+
+### A ugly but functional result identifier here looks like:
+
+```
+"USA-USFDACVM-2019-US-003964"
+"USA-USFDACVM-2019-US-004891"
+"USA-USFDACVM-2019-US-005247"
+"USA-USFDACVM-2019-US-005449"
+"USA-USFDACVM-2019-US-006471"
+```
+
+
+there are 12,964 result ids in this test file and no duplication
+
+
+### reported severity which might serve as a filter for the result
+.results|.[]|.serious_ae
+```
+   6958 "false"
+   3547 "true"
+   2459 null
+```
+
+### result type
+jq ".results|.[]|.type_of_information"
+```
+   6674 "Safety Issue"
+   3198 "Lack Of Expected Effectiveness"
+   2408 "Manufacturing/Product Defect Manufacturing Defect With no Adverse Events"
+    525 "Both Safety And Lack Of Expected Effectiveness"
+    124 "Manufacturing/Product Defect Manufacturing Defect (Safety)"
+     24 "Manufacturing/Product Defect Manufacturing Defect (Loee)"
+      9 "Manufacturing/Product Defect Manufacturing Defect (Both Safety And Loee)"
+      1 "Safety Issue (Clinical Studies)"
+      1 "Other"
+```
+
+### Counts of animals affected/treated in the result
+### which I will ignore for now
+
+
+### As before results have an animal, which is of a species.
+.results|.[]|.animal|.species
+
+### Animals have vitals such as age, weight, which I will ignore for now
+
+
+### Animals have a breed which we may be able to use as a refinement on species
+
+which can generate results such as:
+
+jq ".results|.[]|.unique_aer_id_number,(.animal|(.species, (.breed|.breed_component)))"
+
+```
+USA-USFDACVM-2019-US-000167"
+"Dog"
+[
+  "Schnauzer - Miniature",
+  "Dog (unknown)"
+]
+"USA-USFDACVM-2019-US-000413"
+"Dog"
+"Dog (unknown)"
+"USA-USFDACVM-2019-US-000439"
+"Dog"
+[
+  "Dog (unknown)",
+  "Dog (other)"
+]
+"USA-USFDACVM-2019-US-003652"
+"Dog"
+"Pinscher - Miniature"
+"USA-USFDACVM-2019-US-003753"
+"Dog"
+"Crossbred Canine/dog"
+"USA-USFDACVM-2019-US-004204"
+"Dog"
+"Retriever - Labrador"
+```
+
+### Gender is something that rarely comes out as expected
+
+```
+jq ".results|.[]|.animal|.gender" junk/animalandveterinary-event-0001-of-0001.json | dist
+   4931 "Female"
+   4818 "Male"
+   2419 null
+    638 "Unknown"
+    158 "Mixed
+
+```
+### which is _not_ terrible  (over 100 flavors in a museum collection was terrible)
+
+
+### including these as "with child" maybe relevent for Lauren's project
+jq ".results|.[]|.animal|.female_animal_physiological_status" junk/animalandveterinary-event-0001-of-0001.json | dist
+   8727 "NOT APPLICABLE"
+   3474 null
+    356 "Unknown"
+    328 "Nonpregnant Nonlactating"
+     32 "Not applicable"
+     23 "Nonpregnant Lactating"
+      9 "Pregnant Nonlactating"
+      8 "Pregnant Lactating"
+      7 "Mixed"
+
+###  the numbers are not great
+
+## Results have a Drug.
+
+### Drugs have active ingredieants
+
+jq ".results|.[]|.unique_aer_id_number,(.drug|.[]|.active_ingredients|.[]|(.name,.dose))"
+
+
+```
+"USA-USFDACVM-2019-US-010630"
+"Ivermectin"
+{
+  "numerator_unit": "Microgram",
+  "denominator": "1",
+  "numerator": "272",
+  "denominator_unit": "dose"
+}
+"Pyrantel As Pamoate Salt"
+{
+  "numerator_unit": "Milligram",
+  "denominator": "1",
+  "numerator": "227",
+  "denominator_unit": "dose"
+}
+"USA-USFDACVM-2019-US-010959"
+"Phenytoin Sodium"
+{
+  "numerator_unit": "Milligram",
+  "denominator": "1",
+  "numerator": "50",
+  "denominator_unit": "mL"
+}
+```
+
+### where much of the dosage info seems pretty useless being similar to
+
+```
+  "numerator_unit": "Unknown",
+  "denominator": "1",
+  "numerator": "1",
+  "denominator_unit": "Unknown"
+```
+
+### there is a Drug manufacturer and "brand name" which are 100%  "MSK"
+### which means "Masked Out" which happens alot in the drug section
+
+
+### there is a code that looks very promising
+.results|.[]|.drug|.[]|.atc_vet_code
+
+there are about 20,929 codes (more than one active ingredient per result on avg)
+but only 209 distinct codes in the test file
+
+
+more on the system the code is from
+https://www.whocc.no/atcvet/atcvet/
+
+it is a classification system ...
+
+the world helth orginization will sell us
+an excel formatted copy for one hundred pounds ... ahh well.
+
+We could at least reverse something useful from
+the starting code structure to gross anatomy/processes.
+
+And would need to look into the human version (without the leading 'Q')
+as they throw some of those in as well.
+
+https://en.wikipedia.org/wiki/Anatomical_Therapeutic_Chemical_Classification_System
+
+
+unpopular atcvet
+    "QA03FA03" "QA03BB01" "QA01AD11" "N01AB06"
+
+polular atcvet
+    "QP54AA51" "QP53BX05" "QJ01CR02" "QP54AB51"
+
+
+### There is also a "product_ndc"
+### "https://www.fda.gov/drugs/drug-approvals-and-databases/national-drug-code-directory"
+### there is a page and half of disclaimers/warnings on construeing these as applicable.
+
+jq ".results|.[]|.drug|.[]|.product_ndc" $SAMP
+
+```
+  17802 null
+    747 "000856-3670"
+    151 "58198-5024-1"
+    137 "17033-110-30"
+    111 "17033-130-30"
+    108 "58198-9754-1"
+     98 "58198-5023-1"
+     85 "Unknown""
+     ...
+```
+
+### product_ndc gets defined as:
+```
+ProductNDC www.fda.gov/edrls under Structured Product Labeling Resources.
+The labeler code and product code segments of the National Drug Code number, separated by a hyphen
+```
+
+### Where do these product_ndc lead to?
+```
+cd data;mldir NDC;cd NDC
+wget -N https://www.accessdata.fda.gov/cder/ndctext.zip
+unzip ndctext.zip
+ls -lth *
+-rw-r--r-- 1 tomc tomc  29M Feb 21 05:45 product.txt
+-rw-r--r-- 1 tomc tomc  24M Feb 21 05:45 package.txt
+-rw-r--r-- 1 tomc tomc 9.3M Feb 21 05:28 ndctext.zip
+
+head -1 product.txt | tr '\t' '\n' | grep -n .
+1:PRODUCTID
+2:PRODUCTNDC
+3:PRODUCTTYPENAME
+4:PROPRIETARYNAME
+5:PROPRIETARYNAMESUFFIX
+6:NONPROPRIETARYNAME
+7:DOSAGEFORMNAME
+8:ROUTENAME
+9:STARTMARKETINGDATE
+10:ENDMARKETINGDATE
+11:MARKETINGCATEGORYNAME
+12:APPLICATIONNUMBER
+13:LABELERNAME
+14:SUBSTANCENAME
+15:ACTIVE_NUMERATOR_STRENGTH
+16:ACTIVE_INGRED_UNIT
+17:PHARM_CLASSES
+18:DEASCHEDULE
+19:NDC_EXCLUDE_FLAG
+
+head -1  package.txt | tr '\t' '\n' | grep -n .
+1:PRODUCTID
+2:PRODUCTNDC
+3:NDCPACKAGECODE
+4:PACKAGEDESCRIPTION
+5:STARTMARKETINGDATE
+6:ENDMARKETINGDATE
+7:NDC_EXCLUDE_FLAG
+
+
+cut -f 2 product.txt  | sort -u | wc -l
+92337
+<product.txt  wc -l
+93634
+cut -f 2 package.txt  | sort -u | wc -l
+92198
+<package.txt  wc -l
+174842
+
+
+```
+
+### could probe more but basicly "industry provided drug info" (suspect)
+### could possibly help fill out details around active ingrediants
+### in theory unmasks many of the 'MSK' values in the FDA dataset,
+### not that we care, but that would explain all the robust disclaimers
+
+
+### Results sometimes have a "onset/duration"
+### and who reported when, all of which I will ignore
+
+### Some results have an animal's pre-condition
+
+```
+jq ".results|.[]|.health_assessment_prior_to_exposure|.condition" $SAMP | dist
+   4298 "Good"
+   3581 "Unknown"
+   2491 null
+   2304 "Fair"
+    242 "Poor"
+     24 "Excellent"
+     17 "No Attending Veterinarian"
+      7 "Critical"
+
+```
+
+### which I could see using along with outcomes
+### to suggest up/down trends w.r.t. active ingrediant.
+
+
+### Results have outcomes
+
+```
+jq ".results|.[]|.outcome|.[]?|.medical_status" $SAMP | dist
+   3894 "Outcome Unknown"
+   2724 "Recovered/Normal"
+   2607 "Ongoing"
+    686 "Recovered with Sequela"
+    417 "Died"
+    307 "Euthanized"
+
+```
+
+### note the '?' in `.outcome|.[]?` in the cmd b/c the .json is inconsistant
+
+
+### Results have a 'reaction'  (not drugs cause a reaction)
+### expressed as a "vedddra" term
+```
+The code indicating the lowest level term as used in VeDDRA
+for each adverse clinical manifestation observed in the adverse event.
+
+-------------------------------------------------------------------
+VeDDRA Terms:
+The VeDDRA Vocabulary is the VICH-harmonized list for submission of adverse event terms.
+VeDDRA medical terminology describes adverse clinical manifestations.
+The most current list, as well as explanation and Guidance Notes on the
+Use of VeDDRA Terminology for Reporting Adverse Events in Animal,
+can be downloaded from ...
+
+
+Who can request access to documents Citizens of the EU ... The Agency is no longer
+in a position to process access to documents requests issued from outside the EU
+
+hmmmm... but they show up here anyway
+https://www.ema.europa.eu/en/search/search?search_api_views_fulltext=VeDDRA
+
+```
+
+### in results they appear with an integer 'code' and a label
+
+```
+jq ".results|.[]|.reaction|.[]|.veddra_term_name" $SAMP | dist | more
+   1880 "Vomiting"
+   1187 "Color, Abnormal"
+   1042 "Lethargy (see also Central nervous system depression in 'Neurological')"
+    937 "Lack of efficacy (heartworm)"
+    815 "Lack of efficacy"
+    717 "Diarrhoea"
+  ...
+
+```
+
+### aside to fetch/explore the VeDDRA data
+
+```
+cd data/
+mkdir VeDDRA
+cd VeDDRA/
+wget -N https://www.ema.europa.eu/documents/other/veterinary-dictionary-drug-regulatory-activities-veddra-v14-dataload-friendly-file-including_en.xls
+wget -N https://www.ema.europa.eu/documents/other/non-current-veterinary-dictionary-drug-regulatory-activities-veddra-low-level-terms-llt-codes_en.xls
+
+ls -lh
+total 2.7M
+-rw-r--r-- 1 tomc tomc  55K Feb 21 14:35 non-current-veterinary-dictionary-drug-regulatory-activities-veddra-low-level-terms-llt-codes_en.xls
+-rw-r--r-- 1 tomc tomc 2.7M Feb 21 14:34 veterinary-dictionary-drug-regulatory-activities-veddra-v14-dataload-friendly-file-including_en.xls
+
+effing great (not) entails every update move data from a server to a consumer guibox
+load propritary MS format transform back into text and move data back to server.
+but at least you get to repeat the same clicky process for every sheet
+
+
+
+pretty dry stuff four (independent) tables
+and one for the stuff you should ignore in the others
+
+and not a whole lot in any case
+
+wc -l *.csv
+   212 non-current-veterinary-dictionary-drug-regulatory-activities-veddra-low-level-terms-llt-codes_en.csv
+   234 veterinary-dictionary-drug-regulatory-activities-veddra-v14-dataload-friendly-file-including_en_HLT.csv
+  2725 veterinary-dictionary-drug-regulatory-activities-veddra-v14-dataload-friendly-file-including_en_LTT.csv
+  1016 veterinary-dictionary-drug-regulatory-activities-veddra-v14-dataload-friendly-file-including_en_PT.csv
+    36 veterinary-dictionary-drug-regulatory-activities-veddra-v14-dataload-friendly-file-including_en_SOC.csv
+  4223 total
+
+
+less when unique
+cut -f2  v*.csv | sort -u | wc -l
+2864
+
+
+```
+
+### Results have a report_id which is not unique  maybe useful for grouping reports somehow
+
+```
+"This field is used for the sender to identify additional information
+that may be used to process the information into their IT systems.
+The format for the report identifier is the 1-character application/file identifier
+followed by the 6-number identifier assigned by FDA for that application/file
+(e.g., A200999).
+The application/file number is the NADA or ANADA number to which the report is being sent.
+```
+
+### that's kinda vague   skipping
+
+
+#################################################################
+
+
+And thats it.
+We know from the press release to expect 800k-900k results
+
+we can see the 130 compressed quarterly file size grow from
+a few tens of kilobytes 30 years ago to a couple-three megabytes now
+
+for a total of 244M (compressed)
+
+
+```
+find  data/animalandveterinary/event/ -type f -name \*.zip -execdir unzip  {} \;
+```
+
+~2.5G uncompressed
+
+It would be prudent to confirm the rest of the .json files
+shared the structure we looked at. (it does)
+
+
+
+

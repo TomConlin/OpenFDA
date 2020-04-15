@@ -1,0 +1,1061 @@
+{
+  "results": [
+    {
+      "receivedate": "20180926",
+      "receivedateformat": "102",
+      "patient": {
+        "reaction": [
+          {
+            "reactionmeddrapt": "Urine output decreased",
+            "reactionmeddraversionpt": "22.0",
+            "reactionoutcome": "1"
+          },
+          {
+            "reactionmeddrapt": "Proteinuria",
+            "reactionmeddraversionpt": "22.0",
+            "reactionoutcome": "1"
+          },
+          {
+            "reactionmeddrapt": "Lymphatic disorder",
+            "reactionmeddraversionpt": "22.0",
+            "reactionoutcome": "1"
+          },
+          {
+            "reactionmeddrapt": "Hyperuricaemia",
+            "reactionmeddraversionpt": "22.0",
+            "reactionoutcome": "1"
+          },
+          {
+            "reactionmeddrapt": "Lymphorrhoea",
+            "reactionmeddraversionpt": "22.0",
+            "reactionoutcome": "1"
+          },
+          {
+            "reactionmeddrapt": "Toxicity to various agents",
+            "reactionmeddraversionpt": "22.0",
+            "reactionoutcome": "1"
+          },
+          {
+            "reactionmeddrapt": "Constipation",
+            "reactionmeddraversionpt": "22.0",
+            "reactionoutcome": "1"
+          },
+          {
+            "reactionmeddrapt": "Diarrhoea",
+            "reactionmeddraversionpt": "22.0",
+            "reactionoutcome": "1"
+          }
+        ],
+        "patientonsetage": "59",
+        "drug": [
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "POTASSIUM CHLORIDE.",
+            "drugindication": "MINERAL SUPPLEMENTATION",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "002",
+            "openfda": {
+              "unii": [
+                "660YQ98I10"
+              ],
+              "product_type": [
+                "HUMAN OTC DRUG",
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "PARENTERAL",
+                "ORAL",
+                "INTRAVENOUS",
+                "SUBLINGUAL"
+              ],
+              "generic_name": [
+                "POTASSIUM CHLORIDE"
+              ],
+              "substance_name": [
+                "POTASSIUM CHLORIDE"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugstartdate": "20180727",
+            "drugdosagetext": "10 G, QD",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "POTASSIUM CHLORIDE"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugstructuredosagenumb": "10",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "drugauthorizationnumb": "050791",
+            "medicinalproduct": "MYFORTIC",
+            "drugindication": "RENAL TRANSPLANT",
+            "drugcharacterization": "1",
+            "drugadministrationroute": "065",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "WX877SQI1G"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "MYCOPHENOLIC ACID"
+              ],
+              "substance_name": [
+                "MYCOPHENOLATE SODIUM"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180727",
+            "drugdosagetext": "1440 MG, QD",
+            "activesubstance": {
+              "activesubstancename": "MYCOPHENOLATE SODIUM"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "14400",
+            "actiondrug": "4",
+            "drugenddate": "20180730",
+            "drugstructuredosagenumb": "1440"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "GANCICLOVIR.",
+            "drugindication": "PROPHYLAXIS",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "048",
+            "drugseparatedosagenumb": "3",
+            "drugstructuredosageunit": "002",
+            "openfda": {
+              "unii": [
+                "P9G3CKZ4P5",
+                "02L083W284"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "INTRAVENTRICULAR",
+                "INTRAVENOUS",
+                "OPHTHALMIC"
+              ],
+              "generic_name": [
+                "GANCICLOVIR",
+                "GANCICLOVIR SODIUM"
+              ],
+              "substance_name": [
+                "GANCICLOVIR",
+                "GANCICLOVIR SODIUM"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugstartdate": "20180804",
+            "drugdosagetext": "1 G, TID",
+            "actiondrug": "5",
+            "activesubstance": {
+              "activesubstancename": "GANCICLOVIR"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugstructuredosagenumb": "1",
+            "drugdosageform": "DISPERSIBLE TABLET",
+            "drugadditional": "3"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "SUCRALFATE.",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "048",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "3",
+            "drugstructuredosageunit": "002",
+            "openfda": {
+              "unii": [
+                "XX73205DH5"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "SUCRALFATE"
+              ],
+              "substance_name": [
+                "SUCRALFATE"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "002",
+            "drugstartdate": "20180727",
+            "drugdosagetext": "1 G, TID",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "SUCRALFATE"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "18",
+            "drugstructuredosagenumb": "1",
+            "drugdosageform": "GEL",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "VITAMINE C",
+            "drugindication": "SUPPLEMENTATION THERAPY",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "002",
+            "drugdosagetext": "2 G, QD",
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "002",
+            "drugstartdate": "20180727",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "ASCORBIC ACID"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "10",
+            "drugstructuredosagenumb": "2",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "SUCRALFATE.",
+            "drugindication": "PROPHYLAXIS",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "048",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "3",
+            "drugstructuredosageunit": "002",
+            "openfda": {
+              "unii": [
+                "XX73205DH5"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "SUCRALFATE"
+              ],
+              "substance_name": [
+                "SUCRALFATE"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "002",
+            "drugstartdate": "20180727",
+            "drugdosagetext": "1 G, TID",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "SUCRALFATE"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "18",
+            "drugstructuredosagenumb": "1",
+            "drugdosageform": "GEL",
+            "drugenddate": "20180801",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "COMPOUND AMINO ACID (14AA)",
+            "drugindication": "NUTRITIONAL SUPPLEMENTATION",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugdosagetext": "250 ML, BID",
+            "drugstructuredosageunit": "012",
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "012",
+            "drugstartdate": "20180727",
+            "actiondrug": "1",
+            "drugseparatedosagenumb": "2",
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "2500",
+            "drugstructuredosagenumb": "250",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "FUROSEMIDE.",
+            "drugindication": "DIURETIC THERAPY",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugdosagetext": "40 MG, PRN",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "7LXU5N7ZO5"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "INTRAMUSCULAR",
+                "ORAL",
+                "INTRAVENOUS"
+              ],
+              "generic_name": [
+                "FUROSEMIDE"
+              ],
+              "substance_name": [
+                "FUROSEMIDE"
+              ]
+            },
+            "drugcharacterization": "2",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180728",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "FUROSEMIDE"
+            },
+            "drugcumulativedosagenumb": "120",
+            "drugstructuredosagenumb": "40",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180730",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "BIFIDOBACTERIUM BIFIDUM",
+            "drugindication": "DYSBIOSIS",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "048",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "3",
+            "drugstructuredosageunit": "003",
+            "drugdosagetext": "2000 MG, TID",
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180727",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "BIFIDOBACTERIUM BIFIDUM"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "30000",
+            "drugstructuredosagenumb": "2000",
+            "drugdosageform": "TABLET",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "drugauthorizationnumb": "050791",
+            "medicinalproduct": "MYFORTIC",
+            "drugcharacterization": "1",
+            "drugadministrationroute": "065",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "WX877SQI1G"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "MYCOPHENOLIC ACID"
+              ],
+              "substance_name": [
+                "MYCOPHENOLATE SODIUM"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180803",
+            "drugdosagetext": "1440 MG, QD",
+            "activesubstance": {
+              "activesubstancename": "MYCOPHENOLATE SODIUM"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "14400",
+            "actiondrug": "4",
+            "drugenddate": "20180803",
+            "drugstructuredosagenumb": "1440"
+          },
+          {
+            "drugstartdateformat": "102",
+            "drugauthorizationnumb": "050791",
+            "medicinalproduct": "MYFORTIC",
+            "drugcharacterization": "1",
+            "drugadministrationroute": "048",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "WX877SQI1G"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "MYCOPHENOLIC ACID"
+              ],
+              "substance_name": [
+                "MYCOPHENOLATE SODIUM"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180804",
+            "drugdosagetext": "1080 MG, QD",
+            "activesubstance": {
+              "activesubstancename": "MYCOPHENOLATE SODIUM"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "14400",
+            "actiondrug": "4",
+            "drugenddate": "20180908",
+            "drugstructuredosagenumb": "1080"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "SIMULECT",
+            "drugindication": "RENAL TRANSPLANT",
+            "drugadministrationroute": "065",
+            "drugenddateformat": "102",
+            "drugdosagetext": "UNK",
+            "openfda": {
+              "unii": [
+                "9927MT646M"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "INTRAVENOUS"
+              ],
+              "generic_name": [
+                "BASILIXIMAB"
+              ],
+              "substance_name": [
+                "BASILIXIMAB"
+              ]
+            },
+            "drugcharacterization": "1",
+            "drugstartdate": "20180727",
+            "activesubstance": {
+              "activesubstancename": "BASILIXIMAB"
+            },
+            "actiondrug": "1",
+            "drugenddate": "20180727",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "SIMULECT",
+            "drugindication": "PROPHYLAXIS AGAINST TRANSPLANT REJECTION",
+            "drugadministrationroute": "065",
+            "drugenddateformat": "102",
+            "drugdosagetext": "UNK",
+            "openfda": {
+              "unii": [
+                "9927MT646M"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "INTRAVENOUS"
+              ],
+              "generic_name": [
+                "BASILIXIMAB"
+              ],
+              "substance_name": [
+                "BASILIXIMAB"
+              ]
+            },
+            "drugcharacterization": "1",
+            "drugstartdate": "20180731",
+            "activesubstance": {
+              "activesubstancename": "BASILIXIMAB"
+            },
+            "actiondrug": "1",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "AMBROXOL HYDROCHLORIDE",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "3",
+            "drugstructuredosageunit": "003",
+            "drugdosagetext": "30 MG, TID",
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180727",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "AMBROXOL HYDROCHLORIDE"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "225",
+            "drugstructuredosagenumb": "30",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "HUMAN ALBUMIN",
+            "drugindication": "BLOOD OSMOLARITY INCREASED",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "2",
+            "drugstructuredosageunit": "002",
+            "drugdosagetext": "10 G, BID",
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "002",
+            "drugstartdate": "20180727",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "ALBUMIN HUMAN"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "100",
+            "drugstructuredosagenumb": "10",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "drugauthorizationnumb": "050791",
+            "medicinalproduct": "MYFORTIC",
+            "drugcharacterization": "1",
+            "drugadministrationroute": "048",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "WX877SQI1G"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "MYCOPHENOLIC ACID"
+              ],
+              "substance_name": [
+                "MYCOPHENOLATE SODIUM"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180909",
+            "drugdosagetext": "1440 MG, QD",
+            "activesubstance": {
+              "activesubstancename": "MYCOPHENOLATE SODIUM"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "14400",
+            "actiondrug": "4",
+            "drugenddate": "20180910",
+            "drugstructuredosagenumb": "1440"
+          },
+          {
+            "drugstartdateformat": "102",
+            "drugauthorizationnumb": "050791",
+            "medicinalproduct": "MYFORTIC",
+            "drugcharacterization": "1",
+            "drugadministrationroute": "048",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "WX877SQI1G"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "MYCOPHENOLIC ACID"
+              ],
+              "substance_name": [
+                "MYCOPHENOLATE SODIUM"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180911",
+            "drugdosagetext": "1260 MG, QD",
+            "activesubstance": {
+              "activesubstancename": "MYCOPHENOLATE SODIUM"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "14400",
+            "actiondrug": "4",
+            "drugstructuredosagenumb": "1260"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "CASPOFUNGIN ACETATE.",
+            "drugindication": "PROPHYLAXIS",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "VUW370O5QE"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "INTRAVENOUS"
+              ],
+              "generic_name": [
+                "CASPOFUNGIN ACETATE"
+              ],
+              "substance_name": [
+                "CASPOFUNGIN ACETATE"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180727",
+            "drugdosagetext": "50 MG, QD",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "CASPOFUNGIN ACETATE"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "400",
+            "drugstructuredosagenumb": "50",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180803",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "AMBROXOL HYDROCHLORIDE",
+            "drugindication": "PRODUCTIVE COUGH",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "003",
+            "drugdosagetext": "45 MG, QD",
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180727",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "AMBROXOL HYDROCHLORIDE"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "225",
+            "drugstructuredosagenumb": "45",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180731",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "POTASSIUM CHLORIDE.",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugdosagetext": "30 ML, PRN",
+            "drugstructuredosageunit": "012",
+            "openfda": {
+              "unii": [
+                "660YQ98I10"
+              ],
+              "product_type": [
+                "HUMAN OTC DRUG",
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "PARENTERAL",
+                "ORAL",
+                "INTRAVENOUS",
+                "SUBLINGUAL"
+              ],
+              "generic_name": [
+                "POTASSIUM CHLORIDE"
+              ],
+              "substance_name": [
+                "POTASSIUM CHLORIDE"
+              ]
+            },
+            "drugcharacterization": "2",
+            "drugstartdate": "20180729",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "POTASSIUM CHLORIDE"
+            },
+            "drugstructuredosagenumb": "30",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180730",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "HEPARIN SODIUM.",
+            "drugindication": "DYSCHEZIA",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugdosagetext": "06 WU, PRN",
+            "openfda": {
+              "unii": [
+                "ZZ45AB24CA"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "INTRAVENOUS",
+                "SUBCUTANEOUS"
+              ],
+              "generic_name": [
+                "HEPARIN SODIUM"
+              ],
+              "substance_name": [
+                "HEPARIN SODIUM"
+              ]
+            },
+            "drugcharacterization": "2",
+            "drugstartdate": "20180729",
+            "activesubstance": {
+              "activesubstancename": "HEPARIN SODIUM"
+            },
+            "actiondrug": "1",
+            "drugenddate": "20180729",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "drugauthorizationnumb": "050791",
+            "medicinalproduct": "MYFORTIC",
+            "drugindication": "PROPHYLAXIS AGAINST TRANSPLANT REJECTION",
+            "drugcharacterization": "1",
+            "drugadministrationroute": "065",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "1",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "WX877SQI1G"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "MYCOPHENOLIC ACID"
+              ],
+              "substance_name": [
+                "MYCOPHENOLATE SODIUM"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180731",
+            "drugdosagetext": "1080 MG, QD",
+            "activesubstance": {
+              "activesubstancename": "MYCOPHENOLATE SODIUM"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "14400",
+            "actiondrug": "4",
+            "drugenddate": "20180802",
+            "drugstructuredosagenumb": "1080"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "GLUTATHIONE",
+            "drugindication": "PROPHYLAXIS",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "048",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "3",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "GAN16C9B8O"
+              ],
+              "product_type": [
+                "HUMAN OTC DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "GLUTATHIONE"
+              ],
+              "substance_name": [
+                "GLUTATHIONE"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180805",
+            "drugdosagetext": "200 MG, TID",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "GLUTATHIONE"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "4800",
+            "drugstructuredosagenumb": "200",
+            "drugdosageform": "TABLET",
+            "drugenddate": "20180820",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "LANSOPRAZOLE.",
+            "drugindication": "PROPHYLAXIS AGAINST GASTROINTESTINAL ULCER",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "048",
+            "drugseparatedosagenumb": "2",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "0K5C5T2QPG"
+              ],
+              "product_type": [
+                "HUMAN OTC DRUG",
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "LANSOPRAZOLE",
+                "LANSOPRAZOLE DELAYED RELEASE"
+              ],
+              "substance_name": [
+                "LANSOPRAZOLE"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugstartdate": "20180805",
+            "drugdosagetext": "30 MG, BID",
+            "actiondrug": "5",
+            "activesubstance": {
+              "activesubstancename": "LANSOPRAZOLE"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugstructuredosagenumb": "30",
+            "drugdosageform": "TABLET",
+            "drugadditional": "3"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "CEFDINIR.",
+            "drugindication": "PROPHYLAXIS",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "048",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "3",
+            "drugstructuredosageunit": "003",
+            "openfda": {
+              "unii": [
+                "6E7SN358SE",
+                "CI0FAO63WC"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "generic_name": [
+                "CEFDINIR"
+              ],
+              "substance_name": [
+                "CEFDINIR",
+                "CEFDINIR MONOHYDRATE"
+              ]
+            },
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "003",
+            "drugstartdate": "20180808",
+            "drugdosagetext": "100 MG, TID",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "CEFDINIR"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "1500",
+            "drugstructuredosagenumb": "100",
+            "drugdosageform": "DISPERSIBLE TABLET",
+            "drugenddate": "20180829",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "CEFOPERAZONE + SULBACTAM",
+            "drugindication": "PROPHYLAXIS",
+            "drugcharacterization": "2",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugseparatedosagenumb": "3",
+            "drugstructuredosageunit": "002",
+            "drugdosagetext": "2 G, TID",
+            "drugintervaldosageunitnumb": "1",
+            "drugcumulativedosageunit": "002",
+            "drugstartdate": "20180727",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "CEFOPERAZONE SODIUM\\SULBACTAM"
+            },
+            "drugintervaldosagedefinition": "804",
+            "drugcumulativedosagenumb": "48",
+            "drugstructuredosagenumb": "2",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180803",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "INOSINE",
+            "drugindication": "HYPOMETABOLISM",
+            "drugadministrationroute": "042",
+            "drugenddateformat": "102",
+            "drugdosagetext": "0.3 G, PRN",
+            "drugstructuredosageunit": "002",
+            "drugcharacterization": "2",
+            "drugcumulativedosageunit": "002",
+            "drugstartdate": "20180728",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "INOSINE"
+            },
+            "drugcumulativedosagenumb": ".9",
+            "drugstructuredosagenumb": ".3",
+            "drugdosageform": "INJECTION",
+            "drugenddate": "20180730",
+            "drugadditional": "1"
+          },
+          {
+            "drugstartdateformat": "102",
+            "medicinalproduct": "POTASSIUM CHLORIDE.",
+            "drugindication": "MINERAL SUPPLEMENTATION",
+            "drugadministrationroute": "048",
+            "drugenddateformat": "102",
+            "drugdosagetext": "1 G, PRN",
+            "drugstructuredosageunit": "002",
+            "openfda": {
+              "unii": [
+                "660YQ98I10"
+              ],
+              "product_type": [
+                "HUMAN OTC DRUG",
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "PARENTERAL",
+                "ORAL",
+                "INTRAVENOUS",
+                "SUBLINGUAL"
+              ],
+              "generic_name": [
+                "POTASSIUM CHLORIDE"
+              ],
+              "substance_name": [
+                "POTASSIUM CHLORIDE"
+              ]
+            },
+            "drugcharacterization": "2",
+            "drugcumulativedosageunit": "002",
+            "drugstartdate": "20180729",
+            "actiondrug": "1",
+            "activesubstance": {
+              "activesubstancename": "POTASSIUM CHLORIDE"
+            },
+            "drugcumulativedosagenumb": "1",
+            "drugstructuredosagenumb": "1",
+            "drugdosageform": "EXTENDED RELEASE TABLET",
+            "drugenddate": "20180729",
+            "drugadditional": "1"
+          }
+        ],
+        "summary": {
+          "narrativeincludeclinical": "CASE EVENT DATE: 20180729"
+        },
+        "patientweight": "74.5",
+        "patientsex": "1",
+        "patientonsetageunit": "801"
+      },
+      "sender": {
+        "senderorganization": "FDA-Public Use",
+        "sendertype": "2"
+      },
+      "transmissiondate": "20191004",
+      "companynumb": "PHHY2018CN103648",
+      "occurcountry": "CN",
+      "receiptdate": "20190824",
+      "transmissiondateformat": "102",
+      "receiptdateformat": "102",
+      "primarysource": {
+        "reportercountry": "CN",
+        "qualification": "1"
+      },
+      "duplicate": "1",
+      "reporttype": "2",
+      "seriousnesshospitalization": "1",
+      "reportduplicate": {
+        "duplicatenumb": "PHHY2018CN103648",
+        "duplicatesource": "NOVARTIS"
+      },
+      "receiver": {
+        "receiverorganization": "FDA",
+        "receivertype": "6"
+      },
+      "serious": "1",
+      "safetyreportversion": "5",
+      "fulfillexpeditecriteria": "1",
+      "safetyreportid": "15429361",
+      "primarysourcecountry": "CN"
+    }
+  ]
+}
